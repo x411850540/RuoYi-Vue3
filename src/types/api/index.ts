@@ -27,3 +27,7 @@ export * from "./monitor/online";
 
 // 代码生成模块
 export * from "./tool/gen";
+
+// 选题引擎模块
+export * from "./topic/client";
+export * from "./topic/problem";
