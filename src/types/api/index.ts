@@ -34,3 +34,5 @@ export * from "./topic/problem";
 export * from "./topic/sourceCase";
 export * from "./topic/shootingItem";
 export * from "./topic/publicationRecord";
+export * from "./topic/contentBrief";
+export * from "./topic/caseResearch";

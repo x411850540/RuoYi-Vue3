@@ -1,0 +1,4 @@
+import type { BaseEntity, PageDomain } from '@/types'
+export interface TopicCaseResearchItem { sourceCode?:string; sourceUrl?:string; titleSnapshot?:string; performanceSnapshot?:string; clusterLabel?:string; decisionStatus?:string; decisionReason?:string; sourceRole?:string; hookSnapshot?:string; learnableSnapshot?:string; nonReusableSnapshot?:string; ordinalNo?:number }
+export interface TopicCaseResearch extends BaseEntity { id?:string; tenantId?:string; researchName?:string; audienceType?:string; problemSnapshot?:string; hypothesisSnapshot?:string; sharedStructureSnapshot?:string; invariantSnapshot?:string; variantAxis?:string; lifecycleStatus?:string; createdAt?:string; items?:TopicCaseResearchItem[] }
+export interface TopicCaseResearchQueryParams extends PageDomain { tenantId?:string; audienceType?:string }
