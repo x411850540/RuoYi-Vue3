@@ -7,12 +7,17 @@ const baseUrl = 'http://localhost:8080' // 后端接口
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
-  const { VITE_APP_ENV } = env
+  const { VITE_APP_ENV, VITE_APP_BASE_URL, VITE_APP_BASE_API } = env
+  const appBase = VITE_APP_BASE_URL || '/'
+  const apiBase = VITE_APP_BASE_URL ? `${appBase}dev-api` : VITE_APP_BASE_API
   return {
     // 部署生产环境和开发环境下的URL。
     // 默认情况下，vite 会假设你的应用是被部署在一个域名的根路径上
     // 例如 https://www.ruoyi.vip/。如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径。例如，如果你的应用被部署在 https://www.ruoyi.vip/admin/，则设置 baseUrl 为 /admin/。
-    base: VITE_APP_ENV === 'production' ? '/' : '/',
+    base: VITE_APP_ENV === 'production' ? appBase : appBase,
+    define: {
+      'import.meta.env.VITE_APP_BASE_API': JSON.stringify(apiBase)
+    },
     plugins: createVitePlugins(env, command === 'build'),
     resolve: {
       // https://cn.vitejs.dev/config/#resolve-alias
@@ -44,13 +49,14 @@ export default defineConfig(({ mode, command }) => {
     server: {
       port: 80,
       host: true,
+      allowedHosts: ['jp.vipzhuang.cn'],
       open: true,
       proxy: {
         // https://cn.vitejs.dev/config/#server-proxy
-        '/dev-api': {
+        [apiBase]: {
           target: baseUrl,
           changeOrigin: true,
-          rewrite: (p) => p.replace(/^\/dev-api/, '')
+          rewrite: (p) => p.replace(apiBase, '')
         },
          // springdoc proxy
          '^/v3/api-docs/(.*)': {
@@ -77,4 +83,3 @@ export default defineConfig(({ mode, command }) => {
     }
   }
 })
-

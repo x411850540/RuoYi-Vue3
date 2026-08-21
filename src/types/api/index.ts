@@ -32,3 +32,5 @@ export * from "./tool/gen";
 export * from "./topic/client";
 export * from "./topic/problem";
 export * from "./topic/sourceCase";
+export * from "./topic/shootingItem";
+export * from "./topic/publicationRecord";
